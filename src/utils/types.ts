@@ -160,7 +160,7 @@ export const types: PkmnType[] = [
         name: "ice",
         description: "Ice, snow, hail, cold temperatures",
         effective: [11, 4, 2, 15],
-        weak: [9, 5],
+        weak: [1, 9, 5, 8],
         notEffective: [9, 10, 14, 8],
         resists: [14],
         noEffectTo: [],
