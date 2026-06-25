@@ -1,12 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Quiz from './pages/quiz/Quiz'
 import Home from './pages/home/Home'
 import Navbar from './components/Navbar'
 import Lesson1 from './pages/learn/Lesson1'
 import Lesson2 from './pages/learn/Lesson2'
 import AllTypeMatchups from './pages/learn/AllTypeMatchups'
 import NotFound from './pages/404/404'
+import QuizHome from './pages/quiz/QuizHome'
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
           <Route path='/learn/lesson-1' element={<Lesson1 />} />
           <Route path='/learn/type-matchups' element={<AllTypeMatchups />} />
           <Route path='/learn/lesson-2' element={<Lesson2 />} />
-          <Route path='/quiz' element={<Quiz />} />
+          <Route path='/quiz' element={<QuizHome />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
