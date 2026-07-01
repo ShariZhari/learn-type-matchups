@@ -15,10 +15,14 @@ export default function QuizHome() {
         setShowQuiz(true);
     }
 
+    const hideQuiz = () => {
+        setShowQuiz(false)
+    }
+
     return <QuizLayout>
         {!showQuiz ? <QuizConfig startQuiz={startQuiz}></QuizConfig>
             : <Suspense fallback={
                 <div className="h-100 w-full content-center text-2xl">Loading...</div>
-            }><Quiz config={config} /></Suspense>}
+            }><Quiz config={config} hideQuiz={hideQuiz}/></Suspense>}
     </QuizLayout>
 }

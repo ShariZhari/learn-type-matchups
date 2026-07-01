@@ -11,7 +11,7 @@ export default function TypeBadge({ title, disabled = false, isBig = false}: Bad
      px-1 py-0.5 font-medium
     ${isBig ? "min-w-24 mb-2 text-2xl" : "min-w-16 m-0.5 text-md transition-colors"}
     hover:${colors[title as keyof typeof colors]} 
-    ${disabled ? paleColors[title as keyof typeof colors] : colors[title as keyof typeof colors]} 
+    ${disabled ? paleColors[title as keyof typeof paleColors] : colors[title as keyof typeof colors]} 
     ${textColors[title as keyof typeof textColors]}
     rounded-lg`}>
         {title}

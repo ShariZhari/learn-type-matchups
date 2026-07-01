@@ -5,9 +5,11 @@ import { types } from "../../../utils/types";
 import { CATEGORY, DIFFICULTY, getWeaknesses, TOTAL_TYPES } from "../../../utils/utils";
 import TypeBadge from "../../../components/TypeBadge";
 import { type PkmnType, type ConfigQuiz } from "../../../utils/interfaces";
+import Finish from "./Finish";
 
 interface QuizProps {
-  config: ConfigQuiz
+  config: ConfigQuiz;
+  hideQuiz: () => void;
 }
 
 const QUIZ_TITLE = {
@@ -16,16 +18,17 @@ const QUIZ_TITLE = {
   2: "Which types is this pokémon weak to?"
 }
 
-export default function Quiz({ config }: QuizProps) {
+export default function Quiz({ config, hideQuiz }: QuizProps) {
   const [currentType1, setCurrentType1] = useState(types[Math.floor(Math.random() * TOTAL_TYPES)]);
   const [currentType2, setCurrentType2] = useState<PkmnType | null>();
   const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
   const [points, setPoints] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [correct, setCorrect] = useState(false);
+  const [finish, setFinish] = useState(false);
 
   useEffect(() => {
-    if(config.category === CATEGORY.DUAL_TYPE){
+    if (config.category === CATEGORY.DUAL_TYPE) {
       setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)])
     }
   }, [config])
@@ -39,9 +42,9 @@ export default function Quiz({ config }: QuizProps) {
   }
 
   const resetGame = () => {
-    if(config.category !== CATEGORY.POKEMON){
+    if (config.category !== CATEGORY.POKEMON) {
       setCurrentType1(types[Math.floor(Math.random() * TOTAL_TYPES)]);
-      if(config.category === CATEGORY.DUAL_TYPE) {
+      if (config.category === CATEGORY.DUAL_TYPE) {
         setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)]);
       }
     }
@@ -52,7 +55,7 @@ export default function Quiz({ config }: QuizProps) {
 
   const checkIfEqual = (types: number[], answer: number[]) => {
     const set1 = new Set(types);
-    if (config.difficulty === DIFFICULTY.BEGINNER) {
+    if (selectedTypes.length && config.difficulty === DIFFICULTY.BEGINNER) {
       return answer.every(item => set1.has(item));
     } else {
       const set2 = new Set(answer);
@@ -73,15 +76,31 @@ export default function Quiz({ config }: QuizProps) {
     setShowResult(true);
   }
 
+  const onRestart = () => {
+    setFinish(false);
+    setPoints(0);
+    resetGame();
+  }
+
+  const goBack = () => {
+    setFinish(false);
+    hideQuiz();
+  }
+
   return <>
-    <div className="pt-11 pb-4 w-full flex flex-col md:flex-row md:justify-between">
+    {finish && <Finish points={points} restart={onRestart} goBack={goBack}></Finish>}
+    <div className="flex justify-end items-center gap-2">
+        <label>POINTS: {points}</label>
+        <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
+        <Button title={"Finish"} onClick={() => setFinish(true)}></Button>
+      </div>
+    <div className="pt-8 md:pt-4 pb-4 w-full flex flex-col md:flex-row">
       <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
-      <label>POINTS: {points}</label>
     </div>
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/3 mb-5">
-      <TypeBadge title={currentType1.name} isBig={true} />
-      {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}</div>
+        <TypeBadge title={currentType1.name} isBig={true} />
+        {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}</div>
       <div className="md:w-2/3 flex flex-wrap">
         <div className="mb-5">
           {types.map((type) => <Button
@@ -95,7 +114,7 @@ export default function Quiz({ config }: QuizProps) {
         {showResult && (correct ? <div><p className="my-2 mb-5">
           <label><strong>Correct!</strong></label>
           <TypeBadge title={currentType1.name}></TypeBadge>
-          {currentType2 && <TypeBadge title={currentType2.name}/>}
+          {currentType2 && <TypeBadge title={currentType2.name} />}
           <label>Is weak against:</label>
           <TypeList typeArray={getWeaknesses(currentType1, currentType2)}></TypeList>
         </p>
