@@ -3,10 +3,11 @@ import { colors, paleColors, textColors } from "../utils/colors";
 interface BadgeProps {
     title: string,
     disabled?: boolean,
+    isX4?: boolean,
     isBig?: boolean
 }
 
-export default function TypeBadge({ title, disabled = false, isBig = false}: BadgeProps) {
+export default function TypeBadge({ title, disabled = false, isBig = false, isX4 = false}: BadgeProps) {
     return <span className={`inline-flex items-center justify-center 
      px-1 py-0.5 font-medium
     ${isBig ? "min-w-24 mb-2 text-2xl" : "min-w-16 m-0.5 text-md transition-colors"}
@@ -15,5 +16,6 @@ export default function TypeBadge({ title, disabled = false, isBig = false}: Bad
     ${textColors[title as keyof typeof textColors]}
     rounded-lg`}>
         {title}
+        {isX4 && " x4"}
     </span>
 }
