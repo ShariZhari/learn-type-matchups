@@ -61,7 +61,7 @@ export const types: PkmnType[] = [
         name: "rock",
         description: "Rocks",
         effective: [9, 14, 6, 2],
-        weak: [10, 11, 1, 8],
+        weak: [10, 11, 1, 8, 4],
         notEffective: [1, 4, 8],
         resists: [0, 9, 3, 2],
         noEffectTo: [],

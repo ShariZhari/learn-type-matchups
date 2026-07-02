@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Button from "../../../components/Button";
 import TypeList from "../../../components/TypeList";
 import { types } from "../../../utils/types";
@@ -19,19 +19,30 @@ const QUIZ_TITLE = {
 }
 
 export default function Quiz({ config, hideQuiz }: QuizProps) {
-  const [currentType1, setCurrentType1] = useState(types[Math.floor(Math.random() * TOTAL_TYPES)]);
+  const [currentType1, setCurrentType1] = useState<PkmnType | null>();
   const [currentType2, setCurrentType2] = useState<PkmnType | null>();
   const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
   const [points, setPoints] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [correct, setCorrect] = useState(false);
   const [finish, setFinish] = useState(false);
+  const indexCopy = useRef<number[] | null>(null);
 
   useEffect(() => {
-    if (config.category === CATEGORY.DUAL_TYPE) {
-      setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)])
+    if (config.category === CATEGORY.SINGLE_TYPE) {
+      indexCopy.current = [...types.map((item) => item.id)];
+      setCurrentType1(types[sampleItem()]);
+    } else if (config.category === CATEGORY.DUAL_TYPE) {
+      setCurrentType1(types[Math.floor(Math.random() * TOTAL_TYPES)]);
+      setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)]);
     }
   }, [config])
+
+  const sampleItem = () => {
+    let item = indexCopy.current![Math.floor(Math.random() * indexCopy.current!.length)]
+    indexCopy.current = indexCopy.current!.filter((x) => x !== item)
+    return item
+  }
 
   const selectType = (id: number) => {
     setSelectedTypes((prev) =>
@@ -42,11 +53,17 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
   }
 
   const resetGame = () => {
-    if (config.category !== CATEGORY.POKEMON) {
-      setCurrentType1(types[Math.floor(Math.random() * TOTAL_TYPES)]);
-      if (config.category === CATEGORY.DUAL_TYPE) {
-        setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)]);
+    if (config.category === CATEGORY.SINGLE_TYPE) {
+      if (indexCopy.current!.length === 0) {
+        setFinish(true);
+        indexCopy.current = [...types.map((item) => item.id)];
+      } else {
+        setCurrentType1(types[sampleItem()]);
       }
+    }
+    if (config.category === CATEGORY.DUAL_TYPE) {
+      setCurrentType1(types[Math.floor(Math.random() * TOTAL_TYPES)]);
+      setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)]);
     }
     setSelectedTypes([]);
     setShowResult(false);
@@ -65,7 +82,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
   }
 
   const checkAnswer = () => {
-    if (checkIfEqual(getWeaknesses(currentType1, currentType2), selectedTypes)) {
+    if (checkIfEqual(getWeaknesses(currentType1!, currentType2), selectedTypes)) {
       setPoints((points) => points + 1)
       setCorrect(true);
     }
@@ -90,16 +107,16 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
   return <>
     {finish && <Finish points={points} restart={onRestart} goBack={goBack}></Finish>}
     <div className="flex justify-end items-center gap-2">
-        <label>POINTS: {points}</label>
-        <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
-        <Button title={"Finish"} onClick={() => setFinish(true)}></Button>
-      </div>
+      <label>POINTS: {points}</label>
+      <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
+      <Button title={"Finish"} onClick={() => setFinish(true)}></Button>
+    </div>
     <div className="pt-8 md:pt-4 pb-4 w-full flex flex-col md:flex-row">
       <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
     </div>
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/3 mb-5">
-        <TypeBadge title={currentType1.name} isBig={true} />
+        {currentType1 && <TypeBadge title={currentType1.name} isBig={true} />}
         {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}</div>
       <div className="md:w-2/3 flex flex-wrap">
         <div className="mb-5">
@@ -113,10 +130,10 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
         </div>
         {showResult && (correct ? <div><p className="my-2 mb-5">
           <label><strong>Correct!</strong></label>
-          <TypeBadge title={currentType1.name}></TypeBadge>
+          {currentType1 && <TypeBadge title={currentType1.name} />}
           {currentType2 && <TypeBadge title={currentType2.name} />}
           <label>Is weak against:</label>
-          <TypeList typeArray={getWeaknesses(currentType1, currentType2)}></TypeList>
+          <TypeList typeArray={getWeaknesses(currentType1!, currentType2)}></TypeList>
         </p>
           <Button title={"Next type"} onClick={resetGame}></Button>
         </div> : <p className="mt-2">
