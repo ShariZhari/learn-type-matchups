@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Button from "../../../components/Button";
 import TypeList from "../../../components/TypeList";
 import { types } from "../../../utils/types";
-import { CATEGORY, DIFFICULTY, getWeaknesses, TOTAL_TYPES } from "../../../utils/utils";
+import { CATEGORY, DIFFICULTY, getWeaknesses } from "../../../utils/utils";
 import TypeBadge from "../../../components/TypeBadge";
 import { type PkmnType, type ConfigQuiz } from "../../../utils/interfaces";
 import Finish from "./Finish";
@@ -29,12 +29,13 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
   const indexCopy = useRef<number[] | null>(null);
 
   useEffect(() => {
-    if (config.category === CATEGORY.SINGLE_TYPE) {
+    if (config.category !== CATEGORY.POKEMON) {
       indexCopy.current = [...types.map((item) => item.id)];
-      setCurrentType1(types[sampleItem()]);
-    } else if (config.category === CATEGORY.DUAL_TYPE) {
-      setCurrentType1(types[Math.floor(Math.random() * TOTAL_TYPES)]);
-      setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)]);
+      if (config.category === CATEGORY.SINGLE_TYPE) {
+        setCurrentType1(types[sampleItem()]);
+      } else if (config.category === CATEGORY.DUAL_TYPE) {
+        getTwoTypes();
+      }
     }
   }, [config])
 
@@ -42,6 +43,23 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     let item = indexCopy.current![Math.floor(Math.random() * indexCopy.current!.length)]
     indexCopy.current = indexCopy.current!.filter((x) => x !== item)
     return item
+  }
+
+  const sampleTwoItems = (array: number[]) => {
+    var indices: number[] = [];
+    var result = new Array(2);
+    for (let i = 0; i < 2; i++) {
+      let j = Math.floor(Math.random() * (array.length - i) + i);
+      result[i] = array[indices[j] === undefined ? j : indices[j]];
+      indices[j] = indices[i] === undefined ? i : indices[i];
+    }
+    return result;
+  }
+
+  const getTwoTypes = () => {
+    const [index1, index2] = sampleTwoItems(indexCopy.current!);
+    setCurrentType1(types[index1]);
+    setCurrentType2(types[index2]);
   }
 
   const selectType = (id: number) => {
@@ -62,8 +80,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
       }
     }
     if (config.category === CATEGORY.DUAL_TYPE) {
-      setCurrentType1(types[Math.floor(Math.random() * TOTAL_TYPES)]);
-      setCurrentType2(types[Math.floor(Math.random() * TOTAL_TYPES)]);
+      getTwoTypes();
     }
     setSelectedTypes([]);
     setShowResult(false);
@@ -139,6 +156,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
         </div> : <p className="mt-2">
           <label>Not quite right. Try again!</label>
         </p>)}
+         {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">This quiz runs indefinetly! Click finish when you want to stop playing.</label>}
       </div>
     </div>
   </>

@@ -2,7 +2,6 @@ import { types } from "./types"
 import { type PkmnType } from "./interfaces"
 
 export const TOTAL_POKEMON = 1025;
-export const TOTAL_TYPES = 17;
 export const ARTWORK_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
 
 export const CATEGORY = {
