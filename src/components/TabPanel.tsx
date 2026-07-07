@@ -114,7 +114,7 @@ export default function TabPanel() {
     const tabContent = types.reduce((acc, type, i) => ({
         ...acc,
         [("tab" + i)]: (<div>
-            <TypeBadge title={type.name} ></TypeBadge>
+            <TypeBadge title={type.name} isBig={true}></TypeBadge>
             <p className="mb-2"><i>{type.description}</i></p>
             {!type.effective.length && (<div className={"px-1"}>
                     <strong>{type.name}</strong> is not supereffective against anything
