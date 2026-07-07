@@ -4,11 +4,24 @@ import { type PkmnType } from "./interfaces"
 export const TOTAL_POKEMON = 1025;
 export const ARTWORK_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
 
+export const CATEGORY = {
+    "SINGLE_TYPE": 0,
+    "DUAL_TYPE": 1,
+    "POKEMON": 2
+}
+
+
+export const DIFFICULTY = {
+    "BEGINNER": 0,
+    "EXPERT": 1,
+    "MASTER": 2
+}
+
 export const getTypeName = (id: number) => {
   return types[id]?.name ?? "";
 }
 
-export const getWeaknesses = (type1: PkmnType, type2?: PkmnType) => {
+export const getWeaknesses = (type1: PkmnType, type2?: PkmnType | null) => {
   if(!type2){
     return type1.weak
   }

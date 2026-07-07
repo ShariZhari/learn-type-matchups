@@ -14,3 +14,12 @@ export interface AccordionData {
     heading: React.ReactNode
     content: React.ReactNode
 }
+
+export interface ConfigQuiz {
+    category: number,
+    difficulty: number
+}
+
+export interface LayoutProps {
+  children: React.ReactNode
+}

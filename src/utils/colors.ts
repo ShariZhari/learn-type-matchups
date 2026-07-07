@@ -1,5 +1,6 @@
 export const colors = {
     default: "bg-mauve-800",
+    secondary: "bg-mist-700",
     normal: "bg-neutral-500",
     fighting: "bg-rose-700",
     flying: "bg-blue-400",
