@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import Button from "../../components/Button";
 import TypeList from "../../components/TypeList";
 import Learn from "../../layouts/Learn";
 import { types } from "../../utils/types";
@@ -7,11 +9,10 @@ export default function Lesson2() {
 
   const type1 = types[9];
   const type2 = types[2];
-  const weakNoResist = [...type1.weak, ...type2.weak].filter((type) => type !== 14);
-  const weakNoImmune = [...weakNoResist].filter((type) => type !== 4);
-  const weakTemp = [10,12,5]
+  const weakNoResist = [...type2.weak].filter((type) => type !== 14);
+  const weakNoImmune = [...type1.weak].filter((type) => type !== 4);
 
-  return <Learn>
+  return <Learn previousPage={"List of all type matchups"} previousLink={"/learn/type-matchups"}>
     <h1 className="text-3xl mb-4">Lesson 2. Dual Type pokemon</h1>
 
     <p className="mb-3">There are some pokémon who are represented by <b>two types</b>.
@@ -24,10 +25,10 @@ export default function Lesson2() {
     </p>
 
     <div className={"px-1"}>
-      <strong>{type1.name}</strong> is weak against <TypeList typeArray={getWeaknesses(type1)}></TypeList>
+      <strong>{type1.name}</strong> is weak against <TypeList typeArray={type1.weak}></TypeList>
     </div>
     <div className={"px-1"}>
-      <strong>{type2.name}</strong> is weak against <TypeList typeArray={getWeaknesses(type2)}></TypeList>
+      <strong>{type2.name}</strong> is weak against <TypeList typeArray={type2.weak}></TypeList>
     </div>
 
     <p className="mb-3"> This gives us a close approximation of the types a Charizard would be weak to.
@@ -52,7 +53,7 @@ export default function Lesson2() {
     <p className="mb-3">In this case, the <b>ice</b> type is one of the many types resisted by fire. Let's delete it from the list.
     </p>
     <div className={"px-1"}>
-      <TypeList typeArray={weakNoResist}></TypeList>
+      <TypeList typeArray={type1.weak}></TypeList><TypeList typeArray={weakNoResist}></TypeList>
     </div>
     <p className="mb-3">So, if Charizard aren't weak to ice, what happens when you attack them with an ice type move anyway?
       Ice types now will cause <b>effective</b> damage to a Charizard. This is, normal damage, just like any other type not listed in the weaknesses and resistances list.
@@ -74,7 +75,7 @@ export default function Lesson2() {
     <p className="mb-3">In this case, the flying type is immune to the <b>ground</b> type. Let's delete it from the list.
     </p>
     <div className={"px-1"}>
-      <TypeList typeArray={weakNoImmune}></TypeList>
+      <TypeList typeArray={weakNoImmune}></TypeList><TypeList typeArray={weakNoResist}></TypeList>
     </div>
     <p className="mb-3">There's an important difference we have to make here: immunities <b>will still make no damage</b> to our pokémon.
       So it doesn't matter if fire is weak to ground by itself; every pokémon with the flying type will be immune to ground type attacks, Charizard included.
@@ -93,18 +94,27 @@ export default function Lesson2() {
     <p className="mb-3">In Charizard's case, <b>both</b> fire and flying types are weak to rock:
     </p>
     <div className={"px-1"}>
-      <TypeList typeArray={weakTemp}></TypeList> x4
+      <TypeList typeArray={getWeaknesses(type1, type2)}></TypeList>
     </div>
     <p className="mb-3"> So, it's recommended that you prioritize rock type moves whenever you can, if you want to defeat a Charizard as soon as possible!
     </p>
     <p className="mb-3">On the same way, if both types of a pokémon resist the same type, then the type becomes <b>mostly ineffective</b> against the pokemon.</p>
 
-    <p className="mb-3">If we take another look at flying and fire's resistances list, grass appears <b>twice</b>. Same with the bug type. 
-    So, don't even think about using a grass type move or a bug type move against a Charizard! It will barely make any damage.
+    <p className="mb-3">If we take another look at flying and fire's resistances list, grass appears <b>twice</b>. Same with the bug type.
+      So, don't even think about using a grass type move or a bug type move against a Charizard! It will barely make any damage.
     </p>
-    <p className="mb-13">As you can see, learning the weaknesses of each pokémon can become tricky. 
+    <p className="mb-3">As you can see, learning the weaknesses of each pokémon can become tricky.
       We would recommend starting learning the weaknesses of your favorite dual type pokémon, or the most popular pokémon used by your rivals.
       And little by little, you'll get an idea of how resistances work!
     </p>
+
+    <p>
+      To reinforce your learning, go to the Quizzes page and select the <b>Dual Type Quiz</b> option to check your knowledge! How many combinations can you guess?
+    </p>
+    <div className="mt-2 mb-13">
+      <Link to="/quiz">
+        <Button color="secondary" title={"Start quiz"}></Button>
+      </Link>
+    </div>
   </Learn>
 }

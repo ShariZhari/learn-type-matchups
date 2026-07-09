@@ -1,7 +1,7 @@
 import Learn from "../../layouts/Learn";
 
 export default function Lesson1 () {
-    return <Learn>
+    return <Learn nextPage={"List of all type matchups"} nextLink={"/learn/type-matchups"}>
     <h1 className="text-3xl mb-4">Lesson 1. Introduction to type matchups</h1>
 
       <p className="mb-3">All pokémon are represented by at least one <b>type</b>.
@@ -43,8 +43,12 @@ export default function Lesson1 () {
         "Water is super effective against fire, because water extinguishes fire". We could create one of these phrases for each relationship:
         "Grass is not very effective against fire, because grass gets burnt if it enters contact with fire" or "fire is supereffective against ice, because fire melts ice".
       </p>
-      <p className="mb-13">
+      <p className="mb-3">
         See? Just think about what would happen if two of these "elements" interacted in real life, and you'll have a closer idea on which move to choose to defeat a pokémon.
         (Okay... they're not 100% akin to reality and some of them might not make any sense, but you gotta pretend sometimes. These are fictional battles either way.)
-      </p></Learn>
+      </p>
+      <p className="mb-13">
+        Go to the <b>next lesson</b> to learn more!
+      </p>
+      </Learn>
 }
