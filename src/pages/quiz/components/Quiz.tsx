@@ -2,10 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import Button from "../../../components/Button";
 import TypeList from "../../../components/TypeList";
 import { types } from "../../../utils/types";
-import { CATEGORY, DIFFICULTY, getWeaknesses } from "../../../utils/utils";
+import { ARTWORK_URL, CATEGORY, DIFFICULTY, getWeaknesses, TOTAL_POKEMON } from "../../../utils/utils";
 import TypeBadge from "../../../components/TypeBadge";
 import { type PkmnType, type ConfigQuiz } from "../../../utils/interfaces";
 import Finish from "./Finish";
+import { Pokedex } from "pokeapi-js-wrapper";
 
 interface QuizProps {
   config: ConfigQuiz;
@@ -22,11 +23,13 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
   const [currentType1, setCurrentType1] = useState<PkmnType | null>();
   const [currentType2, setCurrentType2] = useState<PkmnType | null>();
   const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
+  const [pokemon, setPokemon] = useState({ name: "", imgUrl: "" });
   const [points, setPoints] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [correct, setCorrect] = useState(false);
   const [finish, setFinish] = useState(false);
   const indexCopy = useRef<number[] | null>(null);
+  const pokedex = useRef<any>(null);
 
   useEffect(() => {
     if (config.category !== CATEGORY.POKEMON) {
@@ -36,8 +39,26 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
       } else if (config.category === CATEGORY.DUAL_TYPE) {
         getTwoTypes();
       }
+    } else {
+      initializePokedex();
     }
   }, [config])
+
+   const initializePokedex = async () => {
+    pokedex.current = await Pokedex.init();
+    await getRandomPokemon();
+  }
+
+  const getRandomPokemon = async () => {
+    const tempPokemon = await pokedex.current.resource(`pokemon/${Math.floor(Math.random() * TOTAL_POKEMON)}`);
+    const tempTypes = tempPokemon.types.map((x: ApiType) => parseInt(x.type.url.slice(-3, -1).replaceAll("/", "")) - 1)
+    setCurrentType1(types[tempTypes[0]])
+    tempTypes.length > 1 ? setCurrentType2(types[tempTypes[1]]) : setCurrentType2(null)
+    setPokemon({
+      name: tempPokemon.species.name.charAt(0).toUpperCase() + tempPokemon.species.name.slice(1),
+      imgUrl: ARTWORK_URL + tempPokemon.id + ".png"
+    });
+  }
 
   const sampleItem = () => {
     let item = indexCopy.current![Math.floor(Math.random() * indexCopy.current!.length)]
@@ -81,6 +102,9 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     }
     if (config.category === CATEGORY.DUAL_TYPE) {
       getTwoTypes();
+    }
+    if (config.category === CATEGORY.POKEMON) {
+      getRandomPokemon();
     }
     setSelectedTypes([]);
     setShowResult(false);
@@ -132,10 +156,19 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
       <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
     </div>
     <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/3 mb-5">
-        {currentType1 && <TypeBadge title={currentType1.name} isBig={true} />}
-        {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}</div>
-      <div className="md:w-2/3 flex flex-wrap">
+      <div className="md:w-2/5 mb-5">
+        <div className="md:w-4/5">
+          <div className="flex flex-col md:flex-row justify-between">
+            {pokemon.name && <h2 className="text-2xl">{pokemon.name}</h2>}
+            <div>
+              {currentType1 && <TypeBadge title={currentType1.name} isBig={true} />}
+              {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}
+            </div>
+          </div>
+          {pokemon.imgUrl && <img className="w-60 md:w-70 md:justify-self-center" src={pokemon.imgUrl} />}
+        </div>
+      </div>
+      <div className="md:w-3/5 flex flex-wrap">
         <div className="mb-5">
           {types.map((type) => <Button
             key={type.id} title={type.name}
@@ -145,7 +178,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
             isType={true}></Button>)}
           {!correct && <div className="mt-3"><Button title={"Check!"} onClick={checkAnswer}></Button></div>}
         </div>
-        {showResult && (correct ? <div><p className="my-2 mb-5">
+        {showResult && (correct ? <div className="w-full"><p className="my-2 mb-5">
           <label><strong>Correct!</strong></label>
           {currentType1 && <TypeBadge title={currentType1.name} />}
           {currentType2 && <TypeBadge title={currentType2.name} />}
@@ -153,10 +186,10 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
           <TypeList typeArray={getWeaknesses(currentType1!, currentType2)}></TypeList>
         </p>
           <Button title={"Next type"} onClick={resetGame}></Button>
-        </div> : <p className="mt-2">
+        </div> : <div className="w-full"><p className="mt-2">
           <label>Not quite right. Try again!</label>
-        </p>)}
-         {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">This quiz runs indefinetly! Click finish when you want to stop playing.</label>}
+        </p></div>)}
+        {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">This quiz runs infinitely! Click finish when you want to stop playing.</label>}
       </div>
     </div>
   </>
