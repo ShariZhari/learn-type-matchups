@@ -1,6 +1,6 @@
 export const colors = {
-    default: "bg-mauve-800",
-    secondary: "bg-mist-700",
+    default: "bg-lime-400",
+    secondary: "bg-sky-400",
     normal: "bg-neutral-500",
     fighting: "bg-rose-700",
     flying: "bg-blue-400",
@@ -17,7 +17,7 @@ export const colors = {
     psychic: "bg-rose-400",
     ice: "bg-cyan-300",
     dragon: "bg-indigo-500",
-    dark: "bg-zinc-700",
+    dark: "bg-zinc-800",
     fairy: "bg-fuchsia-400"
 };
 

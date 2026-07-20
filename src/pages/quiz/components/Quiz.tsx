@@ -7,6 +7,7 @@ import TypeBadge from "../../../components/TypeBadge";
 import { type PkmnType, type ConfigQuiz } from "../../../utils/interfaces";
 import Finish from "./Finish";
 import { Pokedex } from "pokeapi-js-wrapper";
+import Card from "../../../components/Card";
 
 interface QuizProps {
   config: ConfigQuiz;
@@ -150,7 +151,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     <div className="flex justify-end items-center gap-2">
       <label>POINTS: {points}</label>
       <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
-      <Button title={"Finish"} onClick={() => setFinish(true)}></Button>
+      <Button title={"Finish"} color={"secondary"} onClick={() => setFinish(true)}></Button>
     </div>
     <div className="pt-8 md:pt-4 pb-4 w-full flex flex-col md:flex-row">
       <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
@@ -158,6 +159,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     <div className="flex flex-col md:flex-row">
       <div className="md:w-2/5 mb-5">
         <div className="md:w-4/5">
+        <Card>
           <div className="flex flex-col md:flex-row justify-between">
             {pokemon.name && <h2 className="text-2xl">{pokemon.name}</h2>}
             <div>
@@ -166,6 +168,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
             </div>
           </div>
           {pokemon.imgUrl && <img className="w-60 md:w-70 md:justify-self-center" src={pokemon.imgUrl} />}
+        </Card>
         </div>
       </div>
       <div className="md:w-3/5 flex flex-wrap">
@@ -185,7 +188,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
           <label>Is weak against:</label>
           <TypeList typeArray={getWeaknesses(currentType1!, currentType2)}></TypeList>
         </p>
-          <Button title={"Next type"} onClick={resetGame}></Button>
+          <Button title={config.category === CATEGORY.POKEMON ? "Next pokemon": "Next type"} onClick={resetGame}></Button>
         </div> : <div className="w-full"><p className="mt-2">
           <label>Not quite right. Try again!</label>
         </p></div>)}

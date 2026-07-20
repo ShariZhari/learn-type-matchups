@@ -9,16 +9,17 @@ interface AccordionProps {
 interface AccordionItemProps extends AccordionData {
     isExpanded: boolean,
     onToggle: () => void
-}
+} //\uFE40 \u276D
 
 function AccordionItem({ heading, isExpanded, content, onToggle }: AccordionItemProps) {
-    return <div className={`bg-mauve-700 rounded-3xl overflow-hidden transition-all duration-300
+    return <div className={`bg-zinc-700 rounded-lg overflow-hidden transition-all duration-300
     ${isExpanded ? "max-h-auto" : "max-h-10"}`}>
 
         <div className="flex justify-between items-start px-3 py-1 cursor-pointer" onClick={onToggle} >
             {heading}
+            <div className="content-center pr-2 text-xl font-bold">{isExpanded ? "\u02C5" : "\u02C3"}</div>
         </div>
-        <div className={`px-5 pb-5 overflow-hidden transition-all duration-100
+        <div className={`px-5 pb-5 pt-2 overflow-hidden transition-all duration-100
             ${isExpanded ? "opacity-100" : "opacity-0"}`}>{content}</div>
 
     </div>
@@ -35,7 +36,7 @@ export default function Accordion({ accordionData, reset }: AccordionProps) {
         setExpandedId(expandedId === id ? null : id)
     }
 
-    return <div className="flex flex-col gap-3  mx-auto">
+    return <div className="flex flex-col gap-3 mx-auto">
         {
             accordionData.map((item, i) =>
                 <AccordionItem key={i} heading={item.heading} content={item.content} isExpanded={expandedId === i} onToggle={() => toggleExpand(i)} />)

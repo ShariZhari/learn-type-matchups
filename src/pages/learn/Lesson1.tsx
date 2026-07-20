@@ -1,3 +1,4 @@
+import Card from "../../components/Card";
 import Learn from "../../layouts/Learn";
 
 export default function Lesson1 () {
@@ -21,22 +22,28 @@ export default function Lesson1 () {
       <p className="mb-3">This is the principle pokémon battles follow. However, with a current total of <b>18 types</b>, the relationships become a bit more complex.
         Here are the rules type relationships can follow:</p>
 
-      <h2 className="text-2xl mt-4">Types of relationships between types</h2>
-      <label>When attacking: (using a move against a pokémon)</label>
-      <ul className="text-sm list-disc pl-10 pr-20 mb-4">
+      <h2 className="text-2xl mt-6 mb-4">Types of relationships between types</h2>
+      <div className="mb-6 flex flex-col gap-4">
+      <Card>
+        <label className="text-lg">When attacking: (using a move against a pokémon)</label>
+      <ul className="list-disc pl-10 pr-20">
         <li>A type can be <b>super effective</b> against another type, causing 2 times the damage the move would normally do (x2)</li>
         <li>A type can be <b>not very effective</b> against another type, causing half the damage it would normally do (x0.5)</li>
         <li>In certain cases, a type can have <b>no effect</b> against another type, causing no damage to the pokémon! (x0)</li>
         <li>If neither of these conditions are met, the move would do normal damage to the pokemon. Also known as <b>effective</b> (x1)</li>
       </ul>
+      </Card>
 
-      <label>When defending: (a pokémon recieving the move of another)</label>
-      <ul className="text-sm list-disc pl-10 pr-20 mb-6">
+      <Card>
+      <label className="text-lg">When defending: (a pokémon recieving the move of another)</label>
+      <ul className="list-disc pl-10 pr-20">
         <li>A type can be <b>weak</b> against another type, recieving twice the damage the move would normally do (x2)</li>
         <li>A type can <b>resist</b> another type, recieving half the damage the move would normally do (x0.5)</li>
         <li>In certain cases, a move's type can have <b>no effect</b> against our pokémon's type, which means we won't recieve any damage (x0)</li>
         <li>And in the same way, if neither of these conditions are met, the move would cause <b>effective</b> (normal) damage to our pokémon (x1)</li>
       </ul>
+      </Card>
+      </div>
 
       <p className="mb-3">Sounds daunting, isn't it? Well, these rules become easier to learn when you find some logic to them.
         We could "cheat" by associating a phrase to a rule. Remember the phrases we used in the fire example?
