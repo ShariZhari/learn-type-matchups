@@ -11,8 +11,8 @@ import QuizHome from './pages/quiz/QuizHome'
 export default function App() {
   return (
     <div className='bg-white dark:bg-zinc-900 min-h-screen text-zinc-900 dark:text-zinc-200'>
-      <Navbar />
       <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/learn/' element={<Navigate to="/learn/lesson-1" replace />} />
