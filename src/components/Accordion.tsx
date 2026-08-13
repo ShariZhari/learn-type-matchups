@@ -13,14 +13,14 @@ interface AccordionItemProps extends AccordionData {
 
 function AccordionItem({ heading, isExpanded, content, onToggle }: AccordionItemProps) {
     return <div className={`bg-zinc-700 rounded-lg overflow-hidden transition-all duration-300
-    ${isExpanded ? "max-h-auto" : "max-h-10"}`}>
+    ${isExpanded ? "max-h-auto" : "max-h-min"}`}>
 
         <div className="flex justify-between items-start px-3 py-1 cursor-pointer" onClick={onToggle} >
             {heading}
-            <div className="content-center pr-2 text-xl font-bold">{isExpanded ? "\u02C5" : "\u02C3"}</div>
+            <button className="content-center pr-2 text-xl font-bold">{isExpanded ? "\u02C5" : "\u02C3"}</button>
         </div>
         <div className={`px-5 pb-5 pt-2 overflow-hidden transition-all duration-100
-            ${isExpanded ? "opacity-100" : "opacity-0"}`}>{content}</div>
+            ${isExpanded ? "block" : "hidden"}`}>{content}</div>
 
     </div>
 }

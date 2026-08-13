@@ -26,12 +26,12 @@ export default function Lesson2() {
     </p>
 
     <Card>
-    <div className={"px-1"}>
-      <strong>{type1.name}</strong> is weak against <TypeList typeArray={type1.weak}></TypeList>
-    </div>
-    <div className={"px-1"}>
-      <strong>{type2.name}</strong> is weak against <TypeList typeArray={type2.weak}></TypeList>
-    </div>
+      <div className={"px-1"}>
+        <strong>{type1.name}</strong> is weak against <TypeList typeArray={type1.weak}></TypeList>
+      </div>
+      <div className={"px-1"}>
+        <strong>{type2.name}</strong> is weak against <TypeList typeArray={type2.weak}></TypeList>
+      </div>
     </Card>
 
     <p className="my-3"> This gives us a close approximation of the types a Charizard would be weak to.
@@ -43,13 +43,13 @@ export default function Lesson2() {
     <p className="mb-3">This is where resistances come into play! Let's list all the resistances fire and flying types have:
     </p>
 
-<Card>
-    <div className={"px-1"}>
-      <strong>{type1.name}</strong> resists <TypeList typeArray={type1.resists}></TypeList>
-    </div>
-    <div className={"px-1"}>
-      <strong>{type2.name}</strong> resists <TypeList typeArray={type2.resists}></TypeList>
-    </div>
+    <Card>
+      <div className={"px-1"}>
+        <strong>{type1.name}</strong> resists <TypeList typeArray={type1.resists}></TypeList>
+      </div>
+      <div className={"px-1"}>
+        <strong>{type2.name}</strong> resists <TypeList typeArray={type2.resists}></TypeList>
+      </div>
     </Card>
 
     <p className="mb-3">To know which types a dual type pokémon is weak to, you have to list all the weaknesses both types have,
@@ -68,14 +68,14 @@ export default function Lesson2() {
     <h2 className="text-2xl mt-8">The role of immunities in dual type matchups</h2>
     <p className="mb-3">Let's move on to the possible immunities type combinations can have. Again, let's list all the immunities fire and flying types have:
     </p>
-    <Card> 
-    <div className={"px-1"}>
-      <strong>{type1.name}</strong> has no immunities
-    </div>
-    <div className={"px-1"}>
-      <strong>{type2.name}</strong> is immune to <TypeList typeArray={type2.notAffectedBy}></TypeList>
-    </div>
-</Card>
+    <Card>
+      <div className={"px-1"}>
+        <strong>{type1.name}</strong> has no immunities
+      </div>
+      <div className={"px-1"}>
+        <strong>{type2.name}</strong> is immune to <TypeList typeArray={type2.notAffectedBy}></TypeList>
+      </div>
+    </Card>
 
     <p className="mb-3">If any of the pokémon's types have at least one immunity, we have to delete it from the list.</p>
 
@@ -93,10 +93,10 @@ export default function Lesson2() {
     <h2 className="text-2xl mt-8">Extremely effective and Mostly ineffective types</h2>
     <p className="mb-3">There is an <b>extra</b> pair of type relationships when dealing with dual type pokémon:</p>
     <Card>
-    <ul className="list-disc pl-10 pr-20">
-      <li>A type can be <b>extremely effective</b> against two types, causing 4 times the damage the move would normally do (x4)</li>
-      <li>A type can be <b>mostly ineffective</b> against two types, causing a quarter of the damage it would normally do (x0.25)</li>
-    </ul>
+      <ul className="list-disc pl-10 pr-20">
+        <li>A type can be <b>extremely effective</b> against two types, causing 4 times the damage the move would normally do (x4)</li>
+        <li>A type can be <b>mostly ineffective</b> against two types, causing a quarter of the damage it would normally do (x0.25)</li>
+      </ul>
     </Card>
     <p className="my-3">If both types of a pokémon are weak to the same type, then the type makes <b>extremely effective</b> damage to the pokemon.</p>
 
@@ -116,17 +116,17 @@ export default function Lesson2() {
       We would recommend starting learning the weaknesses of your favorite dual type pokémon, or the most popular pokémon used by your rivals.
       And little by little, you'll get an idea of how resistances work!
     </p>
-<div className="mt-2 mb-13">
-<Card>
-    <p>
-      To reinforce your learning, go to the Quizzes page and select the <b>Dual Type Quiz</b> option to check your knowledge! How many combinations can you guess?
-    </p>
-    <div className="mt-2">
-      <Link to="/quiz">
-        <Button title={"Start quiz"}></Button>
-      </Link>
-    </div>
-    </Card>
+    <div className="mt-2 mb-13">
+      <Card>
+        <p>
+          To reinforce your learning, go to the Quizzes page and select the <b>Dual Type Quiz</b> option to check your knowledge! How many combinations can you guess?
+        </p>
+        <div className="mt-2">
+          <Link to="/quiz">
+            <Button title={"Start quiz"}></Button>
+          </Link>
+        </div>
+      </Card>
     </div>
   </Learn>
 }

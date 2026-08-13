@@ -45,7 +45,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     }
   }, [config])
 
-   const initializePokedex = async () => {
+  const initializePokedex = async () => {
     pokedex.current = await Pokedex.init();
     await getRandomPokemon();
   }
@@ -148,51 +148,53 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
 
   return <>
     {finish && <Finish points={points} restart={onRestart} goBack={goBack}></Finish>}
-    <div className="flex justify-end items-center gap-2">
-      <label>POINTS: {points}</label>
-      <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
-      <Button title={"Finish"} color={"secondary"} onClick={() => setFinish(true)}></Button>
-    </div>
-    <div className="pt-8 md:pt-4 pb-4 w-full flex flex-col md:flex-row">
-      <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
-    </div>
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-2/5 mb-5">
-        <div className="md:w-4/5">
-        <Card>
-          <div className="flex flex-col md:flex-row justify-between">
-            {pokemon.name && <h2 className="text-2xl">{pokemon.name}</h2>}
-            <div>
-              {currentType1 && <TypeBadge title={currentType1.name} isBig={true} />}
-              {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}
-            </div>
-          </div>
-          {pokemon.imgUrl && <img className="w-60 md:w-70 md:justify-self-center" src={pokemon.imgUrl} />}
-        </Card>
-        </div>
+    <div inert={finish}>
+      <div className="flex justify-end items-center gap-2">
+        <label>POINTS: {points}</label>
+        <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
+        <Button title={"Finish"} color={"secondary"} onClick={() => setFinish(true)}></Button>
       </div>
-      <div className="md:w-3/5 flex flex-wrap">
-        <div className="mb-5">
-          {types.map((type) => <Button
-            key={type.id} title={type.name}
-            color={type.name}
-            onClick={() => selectType(type.id)}
-            disabled={!selectedTypes.includes(type.id)}
-            isType={true}></Button>)}
-          {!correct && <div className="mt-3"><Button title={"Check!"} onClick={checkAnswer}></Button></div>}
+      <div className="pt-8 md:pt-4 pb-4 w-full flex flex-col md:flex-row">
+        <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
+      </div>
+      <div className="flex flex-col md:flex-row">
+        <div className="md:w-2/5 mb-5">
+          <div className="md:w-4/5">
+            <Card>
+              <div className="flex flex-col md:flex-row justify-between">
+                {pokemon.name && <h2 className="text-2xl">{pokemon.name}</h2>}
+                <div>
+                  {currentType1 && <TypeBadge title={currentType1.name} isBig={true} />}
+                  {currentType2 && <TypeBadge title={currentType2.name} isBig={true} />}
+                </div>
+              </div>
+              {pokemon.imgUrl && <img className="w-60 md:w-70 md:justify-self-center" src={pokemon.imgUrl} />}
+            </Card>
+          </div>
         </div>
-        {showResult && (correct ? <div className="w-full"><p className="my-2 mb-5">
-          <label><strong>Correct!</strong></label>
-          {currentType1 && <TypeBadge title={currentType1.name} />}
-          {currentType2 && <TypeBadge title={currentType2.name} />}
-          <label>Is weak against:</label>
-          <TypeList typeArray={getWeaknesses(currentType1!, currentType2)}></TypeList>
-        </p>
-          <Button title={config.category === CATEGORY.POKEMON ? "Next pokemon": "Next type"} onClick={resetGame}></Button>
-        </div> : <div className="w-full"><p className="mt-2">
-          <label>Not quite right. Try again!</label>
-        </p></div>)}
-        {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">This quiz runs infinitely! Click finish when you want to stop playing.</label>}
+        <div className="md:w-3/5 flex flex-wrap">
+          <div className="mb-5">
+            {types.map((type) => <Button
+              key={type.id} title={type.name}
+              color={type.name}
+              onClick={() => selectType(type.id)}
+              disabled={!selectedTypes.includes(type.id)}
+              isType={true}></Button>)}
+            {!correct && <div className="mt-3"><Button title={"Check!"} onClick={checkAnswer}></Button></div>}
+          </div>
+          {showResult && (correct ? <div className="w-full"><p className="my-2 mb-5">
+            <label><strong>Correct!</strong></label>
+            {currentType1 && <TypeBadge title={currentType1.name} />}
+            {currentType2 && <TypeBadge title={currentType2.name} />}
+            <label>Is weak against:</label>
+            <TypeList typeArray={getWeaknesses(currentType1!, currentType2)}></TypeList>
+          </p>
+            <Button title={config.category === CATEGORY.POKEMON ? "Next pokemon" : "Next type"} onClick={resetGame}></Button>
+          </div> : <div className="w-full"><p className="mt-2">
+            <label>Not quite right. Try again!</label>
+          </p></div>)}
+          {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">This quiz runs infinitely! Click finish when you want to stop playing.</label>}
+        </div>
       </div>
     </div>
   </>
