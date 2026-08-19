@@ -17,6 +17,18 @@ export const DIFFICULTY = {
     "MASTER": 2
 }
 
+export const LESSON_URLS = {
+  "LESSON1": "/learn/lesson-1",
+  "TYPE_MATCHUPS": "/learn/type-matchups",
+  "LESSON2": "/learn/lesson-2"
+}
+
+export const ICONS = {
+ "RIGHT_ARROW": "\u02C3",
+ "LEFT_ARROW": "\u02C2",
+ "DOWN_ARROW": "\u02C3",
+}
+
 export const getTypeName = (id: number) => {
   return types[id]?.name ?? "";
 }

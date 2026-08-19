@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import TypeBadge from "./TypeBadge"
+import "../utils/i18n"
 
 interface ButtonProps {
     title: string,
@@ -9,6 +11,7 @@ interface ButtonProps {
 }
 
 export default function Button({ title, onClick, color = "default", isType = false, disabled = false }: ButtonProps) {
+    const {t} = useTranslation();
     return isType ?
         <button onClick={onClick}>
             <TypeBadge title={title} disabled={disabled}></TypeBadge>
@@ -19,6 +22,6 @@ export default function Button({ title, onClick, color = "default", isType = fal
                     : "outline-lime-400 text-lime-400 hover:bg-lime-900 focus:bg-lime-900"}`}
             onClick={onClick}
         >
-            {title}
+            {t(title)}
         </button>
 }
