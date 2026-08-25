@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import type { AccordionData } from "../utils/interfaces";
+import { ICONS } from "../utils/utils";
 
 interface AccordionProps {
     accordionData: AccordionData[];
@@ -9,7 +10,7 @@ interface AccordionProps {
 interface AccordionItemProps extends AccordionData {
     isExpanded: boolean,
     onToggle: () => void
-} //\uFE40 \u276D
+}
 
 function AccordionItem({ heading, isExpanded, content, onToggle }: AccordionItemProps) {
     return <div className={`bg-zinc-700 rounded-lg overflow-hidden transition-all duration-300
@@ -17,7 +18,7 @@ function AccordionItem({ heading, isExpanded, content, onToggle }: AccordionItem
 
         <div className="flex justify-between items-start px-3 py-1 cursor-pointer" onClick={onToggle} >
             {heading}
-            <button className="content-center pr-2 text-xl font-bold">{isExpanded ? "\u02C5" : "\u02C3"}</button>
+            <button className="content-center pr-2 text-xl font-bold">{isExpanded ? ICONS.DOWN_ARROW : ICONS.RIGHT_ARROW}</button>
         </div>
         <div className={`px-5 pb-5 pt-2 overflow-hidden transition-all duration-100
             ${isExpanded ? "block" : "hidden"}`}>{content}</div>

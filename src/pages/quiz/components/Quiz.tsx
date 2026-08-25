@@ -2,12 +2,14 @@ import { useEffect, useState, useRef } from "react";
 import Button from "../../../components/Button";
 import TypeList from "../../../components/TypeList";
 import { types } from "../../../utils/types";
-import { ARTWORK_URL, CATEGORY, DIFFICULTY, getWeaknesses, TOTAL_POKEMON } from "../../../utils/utils";
+import { ARTWORK_URL, CATEGORY, DIFFICULTY, getWeaknesses, IMG_TYPE, TOTAL_POKEMON } from "../../../utils/utils";
 import TypeBadge from "../../../components/TypeBadge";
 import { type PkmnType, type ConfigQuiz } from "../../../utils/interfaces";
 import Finish from "./Finish";
 import { Pokedex } from "pokeapi-js-wrapper";
 import Card from "../../../components/Card";
+import "../../../utils/i18n"
+import { useTranslation } from "react-i18next";
 
 interface QuizProps {
   config: ConfigQuiz;
@@ -15,12 +17,13 @@ interface QuizProps {
 }
 
 const QUIZ_TITLE = {
-  0: "Which types is this type weak to?",
-  1: "Which types is this type combination weak to?",
-  2: "Which types is this pokémon weak to?"
+  0: "quiz.singleTitle",
+  1: "quiz.dualTitle",
+  2: "quiz.pokemonTitle"
 }
 
 export default function Quiz({ config, hideQuiz }: QuizProps) {
+  const {t} = useTranslation();
   const [currentType1, setCurrentType1] = useState<PkmnType | null>();
   const [currentType2, setCurrentType2] = useState<PkmnType | null>();
   const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
@@ -57,7 +60,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     tempTypes.length > 1 ? setCurrentType2(types[tempTypes[1]]) : setCurrentType2(null)
     setPokemon({
       name: tempPokemon.species.name.charAt(0).toUpperCase() + tempPokemon.species.name.slice(1),
-      imgUrl: ARTWORK_URL + tempPokemon.id + ".png"
+      imgUrl: ARTWORK_URL + tempPokemon.id + IMG_TYPE
     });
   }
 
@@ -150,12 +153,12 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     {finish && <Finish points={points} restart={onRestart} goBack={goBack}></Finish>}
     <div inert={finish}>
       <div className="flex justify-end items-center gap-2">
-        <label>POINTS: {points}</label>
-        <Button title={"Go back"} color={"secondary"} onClick={goBack}></Button>
-        <Button title={"Finish"} color={"secondary"} onClick={() => setFinish(true)}></Button>
+        <label>{t("quiz.points")} {points}</label>
+        <Button title={"quiz.goBack"} color={"secondary"} onClick={goBack}></Button>
+        <Button title={"quiz.finish"} color={"secondary"} onClick={() => setFinish(true)}></Button>
       </div>
       <div className="pt-8 md:pt-4 pb-4 w-full flex flex-col md:flex-row">
-        <h1 className="text-3xl mb-4">{QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE]}</h1>
+        <h1 className="text-3xl mb-4">{t(QUIZ_TITLE[config.category as keyof typeof QUIZ_TITLE])}</h1>
       </div>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-2/5 mb-5">
@@ -180,20 +183,20 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
               onClick={() => selectType(type.id)}
               disabled={!selectedTypes.includes(type.id)}
               isType={true}></Button>)}
-            {!correct && <div className="mt-3"><Button title={"Check!"} onClick={checkAnswer}></Button></div>}
+            {!correct && <div className="mt-3"><Button title={"quiz.check"} onClick={checkAnswer}></Button></div>}
           </div>
           {showResult && (correct ? <div className="w-full"><p className="my-2 mb-5">
-            <label><strong>Correct!</strong></label>
+            <label><strong>{t("quiz.correct")} </strong></label>
             {currentType1 && <TypeBadge title={currentType1.name} />}
             {currentType2 && <TypeBadge title={currentType2.name} />}
-            <label>Is weak against:</label>
+            <label> {t("types.weak")} </label>
             <TypeList typeArray={getWeaknesses(currentType1!, currentType2)}></TypeList>
           </p>
-            <Button title={config.category === CATEGORY.POKEMON ? "Next pokemon" : "Next type"} onClick={resetGame}></Button>
+            <Button title={config.category === CATEGORY.POKEMON ? t("quiz.nextPokemon") : t("quiz.nextType")} onClick={resetGame}></Button>
           </div> : <div className="w-full"><p className="mt-2">
-            <label>Not quite right. Try again!</label>
+            <label>{t("quiz.notRight")}</label>
           </p></div>)}
-          {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">This quiz runs infinitely! Click finish when you want to stop playing.</label>}
+          {config.category !== CATEGORY.SINGLE_TYPE && <label className="mt-5 text-sm">{t("quiz.notice")}</label>}
         </div>
       </div>
     </div>
