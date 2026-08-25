@@ -7,12 +7,19 @@ import Lesson2 from './pages/learn/Lesson2'
 import AllTypeMatchups from './pages/learn/AllTypeMatchups'
 import NotFound from './pages/404/404'
 import QuizHome from './pages/quiz/QuizHome'
+import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 export default function App() {
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(navigator.language)
+  }, [])
+
   return (
     <div className='bg-white dark:bg-zinc-900 min-h-screen text-zinc-900 dark:text-zinc-200'>
       <BrowserRouter>
-      <Navbar />
+        <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/learn/' element={<Navigate to="/learn/lesson-1" replace />} />
