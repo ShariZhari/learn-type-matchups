@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { ICONS } from "../utils/utils";
 
 interface SidebarProps {
     showSidebar: boolean;
@@ -16,7 +17,7 @@ export default function Sidebar({ showSidebar, toggleSidebar }: SidebarProps) {
             ${showSidebar ? "left-0" : "-left-60"} transition-all ease-out delay-150 duration-300`}>
             <nav className="mt-4 space-y-1">
                 <div className="flex justify-end">
-                    <button className="px-2 text-xl font-bold block lg:hidden" onClick={toggleSidebar}>{"\u02C2"}</button>
+                    <button className="px-2 text-xl font-bold block lg:hidden" onClick={toggleSidebar}>{ICONS.LEFT_ARROW}</button>
                 </div>
                 <ul className="flex flex-col divide-y-1 divide-white">
                     <NavLink to={"/learn/lesson-1"} className={({ isActive }) =>

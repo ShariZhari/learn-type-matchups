@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import Button from "../../components/Button"
-import { ARTWORK_URL, TOTAL_POKEMON } from "../../utils/utils"
+import { ARTWORK_URL, IMG_TYPE, TOTAL_POKEMON } from "../../utils/utils"
 import HomeLayout from "../../layouts/HomeLayout"
 import { useTranslation } from "react-i18next"
 import "../../utils/i18n"
@@ -11,7 +11,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row">
         <h1 className="md:hidden text-4xl text-sky-400 font-medium">{t("home.welcome")}</h1>
         <div className="md:w-7/12 flex justify-center">
-            <img className="w-60 md:w-100" src={ARTWORK_URL + Math.floor(Math.random() * TOTAL_POKEMON) + ".png"} />
+            <img className="w-60 md:w-100" src={ARTWORK_URL + Math.floor(Math.random() * TOTAL_POKEMON) + IMG_TYPE} />
         </div>
         <div className="md:w-5/12 flex flex-col">
             <div className="mb-8">

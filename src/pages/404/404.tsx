@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import HomeLayout from "../../layouts/HomeLayout";
-import { ARTWORK_URL } from "../../utils/utils";
+import { ARTWORK_URL, IMG_TYPE } from "../../utils/utils";
 import "../../utils/i18n";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +13,7 @@ export default function NotFound() {
         <div className="flex flex-col md:flex-row w-full">
             <h1 className="md:hidden text-4xl">{t("common.notFound")}</h1>
             <div className="md:w-7/12 flex justify-center">
-                <img className="w-60 md:w-100" src={ARTWORK_URL + LUXIO + ".png"} />
+                <img className="w-60 md:w-100" src={ARTWORK_URL + LUXIO + IMG_TYPE} />
             </div>
             <div className="md:w-5/12 flex flex-col justify-center">
                 <h1 className="text-3xl mb-4 hidden md:block">{t("common.notFound")}</h1>

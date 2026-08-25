@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Button from "../../../components/Button";
 import TypeList from "../../../components/TypeList";
 import { types } from "../../../utils/types";
-import { ARTWORK_URL, CATEGORY, DIFFICULTY, getWeaknesses, TOTAL_POKEMON } from "../../../utils/utils";
+import { ARTWORK_URL, CATEGORY, DIFFICULTY, getWeaknesses, IMG_TYPE, TOTAL_POKEMON } from "../../../utils/utils";
 import TypeBadge from "../../../components/TypeBadge";
 import { type PkmnType, type ConfigQuiz } from "../../../utils/interfaces";
 import Finish from "./Finish";
@@ -60,7 +60,7 @@ export default function Quiz({ config, hideQuiz }: QuizProps) {
     tempTypes.length > 1 ? setCurrentType2(types[tempTypes[1]]) : setCurrentType2(null)
     setPokemon({
       name: tempPokemon.species.name.charAt(0).toUpperCase() + tempPokemon.species.name.slice(1),
-      imgUrl: ARTWORK_URL + tempPokemon.id + ".png"
+      imgUrl: ARTWORK_URL + tempPokemon.id + IMG_TYPE
     });
   }
 

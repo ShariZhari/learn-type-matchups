@@ -3,6 +3,7 @@ import { type PkmnType } from "./interfaces"
 
 export const TOTAL_POKEMON = 1025;
 export const ARTWORK_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
+export const IMG_TYPE = ".png";
 
 export const CATEGORY = {
     "SINGLE_TYPE": 0,
@@ -26,7 +27,7 @@ export const LESSON_URLS = {
 export const ICONS = {
  "RIGHT_ARROW": "\u02C3",
  "LEFT_ARROW": "\u02C2",
- "DOWN_ARROW": "\u02C3",
+ "DOWN_ARROW": "\u02C5",
 }
 
 export const getTypeName = (id: number) => {

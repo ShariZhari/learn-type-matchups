@@ -54,10 +54,10 @@ const populateDescription = (type: number, typeArray: number[], relationship: nu
             <TypeBadge title={getTypeName(type)} /> {t(relationshipDesc)} <TypeBadge title={getTypeName(id)} /> {t("learn.typeMatchups.because")}
             {(relationship === RELATIONSHIP_TYPE.STRONG ||
                 relationship === RELATIONSHIP_TYPE.NOT_VERY_EFFECTIVE ||
-                relationship === RELATIONSHIP_TYPE.NO_EFFECT) && <label> {phrases[type][id]}</label>}
+                relationship === RELATIONSHIP_TYPE.NO_EFFECT) && <label> {t(phrases[type][id]) || t(phrases[id][type])}</label>}
             {(relationship === RELATIONSHIP_TYPE.WEAK ||
                 relationship === RELATIONSHIP_TYPE.RESISTS ||
-                relationship === RELATIONSHIP_TYPE.IMMUNE) && <label> {phrases[id][type]}</label>}
+                relationship === RELATIONSHIP_TYPE.IMMUNE) && <label> {t(phrases[id][type]) || t(phrases[type][id]) }</label>}
         </div>
     ))
 }
@@ -81,12 +81,12 @@ const populateAccordion = (type: PkmnType) => {
         heading: (<div className={"px-1"}>
             <strong>{t(type.name)}</strong> {t("types.resists")} <TypeList typeArray={type.resists}></TypeList>
         </div>),
-        content: (<div>test</div>)
+        content: (populateDescription(type.id, type.resists, RELATIONSHIP_TYPE.RESISTS))
     }, {
         heading: (<div className={"px-1"}>
             <strong>{t(type.name)}</strong> {t("types.notVeryEffective")} <TypeList typeArray={type.notEffective}></TypeList>
         </div>),
-        content: (<div>test</div>)
+        content: (populateDescription(type.id, type.notEffective, RELATIONSHIP_TYPE.NOT_VERY_EFFECTIVE))
     })
     if (type.noEffectTo.length) {
         description.push({

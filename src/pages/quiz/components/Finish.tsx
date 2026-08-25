@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Button from "../../../components/Button"
-import { ARTWORK_URL } from "../../../utils/utils";
+import { ARTWORK_URL, IMG_TYPE } from "../../../utils/utils";
 
 interface FinishProps {
     points: number;
@@ -17,7 +17,7 @@ export default function Finish({ points, restart, goBack }: FinishProps) {
         <div className="absolute left-0 right-0 mx-auto p-4 md:p-14 w-4/5 sm:w-2/3 rounded-xl bg-zinc-800 shadow-md">
             <div className="flex flex-row">
             <div className="w-1/3">
-                <img src={ARTWORK_URL + VICTINI + ".png"} />
+                <img src={ARTWORK_URL + VICTINI + IMG_TYPE} />
             </div>
             <div className="w-2/3 self-center">
                <h1 className="text-xl sm:text-3xl mb-4">{t("quiz.finish.title")}</h1>
