@@ -1,9 +1,11 @@
+import Footer from "./components/Footer"
 import type { LayoutProps } from "../utils/interfaces"
 
-export default function HomeLayout({children}: LayoutProps) {
-  return <div className="flex h-full pt-11 overflow-hidden rounded-xl justify-center">
-        <div className="bg-zinc-800 mt-4 min-w-11/12 mx-13 p-8 flex rounded-lg">
+export default function HomeLayout({ children }: LayoutProps) {
+  return <div className="flex flex-col h-full pt-11 overflow-hidden rounded-xl justify-center">
+    <div className="bg-zinc-800 mt-4 min-w-11/12 mx-13 p-8 flex rounded-lg">
       {children}
     </div>
+    <Footer />
   </div>
 }

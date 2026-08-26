@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import defaultTheme from "tailwindcss/defaultTheme";
-import NextPage from "../components/NextPage"
-import Sidebar from "../components/Sidebar"
+import NextPage from "./components/NextPage";
+import Sidebar from "./components/Sidebar"
 import useWindowSize from "../utils/hooks";
 import type { LayoutProps } from "../utils/interfaces"
 

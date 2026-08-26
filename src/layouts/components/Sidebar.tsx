@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import { ICONS } from "../utils/utils";
+import { ICONS } from "../../utils/utils";
 
 interface SidebarProps {
     showSidebar: boolean;

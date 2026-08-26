@@ -55,6 +55,8 @@
     "home.learnDescription": "Learn the basics behind type strengths and weaknesses, type combinations, and more.",
     "home.startLearning": "Start learning",
     "home.quizDescription": "Test your skills and knowledge in type matchups!",
+    "home.about": "This is an unofficial derivative work based on Pokémon.",
+    "home.copy": "Pokémon belongs to © Nintendo/Creatures Inc./GAMEFREAK Inc.",
     "quiz.singleTitle": "Which types is this type weak to?",
     "quiz.dualTitle": "Which types is this type combination weak to?",
     "quiz.pokemonTitle": "Which types is this pokémon weak to?",

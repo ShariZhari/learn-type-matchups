@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
-import TabPanel from "../../components/TabPanel";
+import TabPanel from "./components/TabPanel";
 import Learn from "../../layouts/Learn";
 import Card from "../../components/Card";
 import { LESSON_URLS } from "../../utils/utils";

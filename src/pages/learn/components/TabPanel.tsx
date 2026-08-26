@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { types } from "../utils/types"
-import { getTypeName, getWeaknesses } from "../utils/utils"
-import Button from "./Button"
-import TypeBadge from "./TypeBadge";
-import type { PkmnType } from "../utils/interfaces";
+import { types } from "../../../utils/types"
+import { getTypeName, getWeaknesses } from "../../../utils/utils";
+import Button from "../../../components/Button"
+import TypeBadge from "../../../components/TypeBadge"
+import type { PkmnType } from "../../../utils/interfaces";
 import Accordion from "./Accordion";
-import TypeList from "./TypeList";
-import { phrases } from "../utils/phrases";
+import TypeList from "../../../components/TypeList";
+import { phrases } from "../../../utils/phrases";
 import { t } from 'i18next';
 
 const RELATIONSHIP_TYPE = {
