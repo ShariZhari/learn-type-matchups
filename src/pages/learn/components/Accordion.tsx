@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import type { AccordionData } from "../utils/interfaces";
-import { ICONS } from "../utils/utils";
+import type { AccordionData } from "../../../utils/interfaces";
+import { ICONS } from "../../../utils/utils";
 
 interface AccordionProps {
     accordionData: AccordionData[];
