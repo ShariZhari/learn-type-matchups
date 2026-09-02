@@ -14,7 +14,7 @@ export default function Lesson2() {
   const weakNoResist = [...type2.weak].filter((type) => type !== 14);
   const weakNoImmune = [...type1.weak].filter((type) => type !== 4);
 
-  return <Learn previousPage={"learn.typeMatchups"} previousLink={LESSON_URLS.TYPE_MATCHUPS}>
+  return <Learn previousPage={"learn.typeMatchups"} previousLink={LESSON_URLS.TYPE_MATCHUPS} nextPage={"learn.extraLesson"} nextLink={LESSON_URLS.EXTRA_LESSON}>
     <h1 className="text-3xl mb-4">{t("learn.lesson2")}</h1>
 
     <p className="mb-3">
@@ -50,17 +50,13 @@ export default function Lesson2() {
       <Trans i18nKey={"learn.lesson2.p5"} components={{ bold: <b /> }} />
     </p>
     <p className="mb-2">
-      <p className="mb-3">
-        <Trans i18nKey={"learn.lesson2.p6"} components={{ bold: <b /> }} />
-      </p>
+      <Trans i18nKey={"learn.lesson2.p6"} components={{ bold: <b /> }} />
     </p>
     <div className={"pb-2"}>
       <TypeList typeArray={type1.weak}></TypeList><TypeList typeArray={weakNoResist}></TypeList>
     </div>
     <p className="mb-3">
-      <p className="mb-3">
-        <Trans i18nKey={"learn.lesson2.p7"} components={{ bold: <b /> }} />
-      </p>
+      <Trans i18nKey={"learn.lesson2.p7"} components={{ bold: <b /> }} />
     </p>
     <p className="mb-3">{t("learn.lesson2.p8")}</p>
     <h2 className="text-2xl mt-8">{t("learn.lesson2.immunities")}</h2>
@@ -116,10 +112,22 @@ export default function Lesson2() {
       <Trans i18nKey={"learn.lesson2.p19"} components={{ bold: <b /> }} />
     </p>
     <p className="mb-3">{t("learn.lesson2.p20")}</p>
-    <div className="mt-2 mb-13">
+    <div className="mt-2">
       <Card>
         <p>
           <Trans i18nKey={"learn.lesson2.quizInfo"} components={{ bold: <b /> }} />
+        </p>
+        <div className="mt-2">
+          <Link to="/quiz">
+            <Button title={"common.startQuiz"}></Button>
+          </Link>
+        </div>
+      </Card>
+    </div>
+    <div className="mt-2 mb-13">
+      <Card>
+        <p>
+          <Trans i18nKey={"learn.lesson2.quizInfo2"} components={{ bold: <b /> }} />
         </p>
         <div className="mt-2">
           <Link to="/quiz">
