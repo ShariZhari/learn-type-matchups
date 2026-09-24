@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { ICONS } from "../utils/utils";
+import { Link } from "react-router";
+import { ICONS } from "../../utils/utils";
 
 interface NextPageProps {
     isNext: Boolean;

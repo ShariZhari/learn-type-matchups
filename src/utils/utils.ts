@@ -21,7 +21,8 @@ export const DIFFICULTY = {
 export const LESSON_URLS = {
   "LESSON1": "/learn/lesson-1",
   "TYPE_MATCHUPS": "/learn/type-matchups",
-  "LESSON2": "/learn/lesson-2"
+  "LESSON2": "/learn/lesson-2",
+  "EXTRA_LESSON": "/learn/extra-lesson"
 }
 
 export const ICONS = {

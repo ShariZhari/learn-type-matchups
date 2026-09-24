@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
-import { ICONS } from "../utils/utils";
+import { NavLink } from "react-router";
+import { ICONS, LESSON_URLS } from "../../utils/utils";
 
 interface SidebarProps {
     showSidebar: boolean;
@@ -20,21 +20,26 @@ export default function Sidebar({ showSidebar, toggleSidebar }: SidebarProps) {
                     <button className="px-2 text-xl font-bold block lg:hidden" onClick={toggleSidebar}>{ICONS.LEFT_ARROW}</button>
                 </div>
                 <ul className="flex flex-col divide-y-1 divide-white">
-                    <NavLink to={"/learn/lesson-1"} className={({ isActive }) =>
+                    <NavLink to={LESSON_URLS.LESSON1} className={({ isActive }) =>
                         isActive ? "text-sky-400" : "text-white"
                     }>
                         <li className="gap-3 px-3 py-2.5 min-h-16 hover:text-sky-400 content-center transition-colors">
                             {t("learn.lesson1")}</li></NavLink>
-                    <NavLink to={"/learn/type-matchups"} className={({ isActive }) =>
+                    <NavLink to={LESSON_URLS.TYPE_MATCHUPS} className={({ isActive }) =>
                         isActive ? "text-sky-400" : "text-white"
                     }>
                         <li className="gap-3 px-3 py-2.5 min-h-16 hover:text-sky-400 content-center transition-colors">
                             {t("learn.typeMatchups")}</li></NavLink>
-                    <NavLink to={"/learn/lesson-2"} className={({ isActive }) =>
+                    <NavLink to={LESSON_URLS.LESSON2} className={({ isActive }) =>
                         isActive ? "text-sky-400" : "text-white"
                     }>
                         <li className="gap-3 px-3 py-2.5 min-h-16 hover:text-sky-400 content-center transition-colors">
                             {t("learn.lesson2")}</li></NavLink>
+                    <NavLink to={"/learn/extra-lesson"} className={({ isActive }) =>
+                        isActive ? "text-sky-400" : "text-white"
+                    }>
+                        <li className="gap-3 px-3 py-2.5 min-h-16 hover:text-sky-400 content-center transition-colors">
+                            {t("learn.extraLesson")}</li></NavLink>
                 </ul>
             </nav>
         </aside>
