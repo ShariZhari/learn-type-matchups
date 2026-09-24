@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Button from "../../components/Button";
 import TabPanel from "./components/TabPanel";
 import Learn from "../../layouts/Learn";

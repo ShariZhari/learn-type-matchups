@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Button from "../../components/Button";
 import HomeLayout from "../../layouts/HomeLayout";
 import { ARTWORK_URL, IMG_TYPE } from "../../utils/utils";

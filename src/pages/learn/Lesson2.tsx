@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Button from "../../components/Button";
 import TypeList from "../../components/TypeList";
 import Learn from "../../layouts/Learn";
