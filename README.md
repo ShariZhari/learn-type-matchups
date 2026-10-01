@@ -3,7 +3,9 @@ Tutorial for playing pokemon games
 
 ## React + TypeScript + Vite
 Visit https://learn-type-matchups.vercel.app/
-Run with npm run dev
+
+
+Or run with npm run dev
 
 
 This is an unofficial derivative work based on Pokémon.
